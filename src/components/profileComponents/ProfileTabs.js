@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../LoadingError/Error";
 import Toast from "./../LoadingError/Toast";
@@ -22,10 +22,23 @@ const ProfileTabs = () => {
   const dispatch = useDispatch();
 
   const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  const { error, loading, user } = userDetails;
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
-  const { loading: updateLoading } = userUpdateProfile;
+  const {
+    error: updateError,
+    loading: updateLoading,
+    success,
+  } = userUpdateProfile;
+
+  useEffect(() => {
+    if (success) {
+      toastId.current = toast.success("Profile Updated", Toastobjects);
+      setOldPassword("");
+      setPassword("");
+      setConfirmPassword("");
+    }
+  }, [success]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -36,17 +49,13 @@ const ProfileTabs = () => {
       }
     } else {
       dispatch(updateUserProfile({ id: user._id, oldPassword, password }));
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.success("Profile Updated", Toastobjects);
-        setPassword("");
-        setConfirmPassword("");
-      }
     }
   };
   return (
     <>
       <Toast />
       {error && <Message variant="alert-danger">{error}</Message>}
+      {updateError && <Message variant="alert-danger">{updateError}</Message>}
       {loading && <Loading />}
       {updateLoading && <Loading />}
       <form className="row  form-container" onSubmit={submitHandler}>

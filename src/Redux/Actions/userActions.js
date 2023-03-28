@@ -124,8 +124,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 export const updateUserProfile = (props) => async (dispatch, getState) => {
   try {
     dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
-    const { id, password } = props;
-    console.log(id, password);
+    const { id, password, oldPassword } = props;
     const {
       userLogin: { userInfo },
     } = getState();
@@ -138,14 +137,14 @@ export const updateUserProfile = (props) => async (dispatch, getState) => {
 
     const { data } = await axios.put(
       `${URL}/api/users/profile/${id}`,
-      { password },
+      { oldPassword, password },
       config
     );
     dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-    window.location.reload(true);
+    // window.location.reload(true);
   } catch (error) {
     const message =
       error.response && error.response.data.message
