@@ -5,13 +5,12 @@ import Toast from "./../LoadingError/Toast";
 import Loading from "./../LoadingError/Loading";
 import { toast } from "react-toastify";
 import { updateUserProfile } from "../../Redux/Actions/userActions";
-import { useNavigate } from "react-router-dom";
 
 const ProfileTabs = () => {
+  const [oldPassword, setOldPassword] = useState();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const toastId = React.useRef(null);
-  const navigate = useNavigate();
 
   const Toastobjects = {
     pauseOnFocusLoss: false,
@@ -36,11 +35,12 @@ const ProfileTabs = () => {
         toastId.current = toast.error("Password does not match", Toastobjects);
       }
     } else {
-      dispatch(updateUserProfile({ id: user._id, password }));
+      dispatch(updateUserProfile({ id: user._id, oldPassword, password }));
       if (!toast.isActive(toastId.current)) {
         toastId.current = toast.success("Profile Updated", Toastobjects);
+        setPassword("");
+        setConfirmPassword("");
       }
-      // navigate("/"); // redirect to home page after updating profile
     }
   };
   return (
@@ -53,6 +53,18 @@ const ProfileTabs = () => {
         <div className="col-md-12">
           <h3>Đổi mật khẩu</h3>
         </div>
+        <div className="col-md-6">
+          <div className="form">
+            <label htmlFor="account-pass">Mật khẩu cũ</label>
+            <input
+              className="form-control"
+              type="password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+          </div>
+        </div>
+        <div></div>
         <div className="col-md-6">
           <div className="form">
             <label htmlFor="account-pass">Mật khẩu mới</label>
