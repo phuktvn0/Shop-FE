@@ -37,7 +37,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch({ type: USER_LOGIN_SUCCESS, payload: data });
 
     localStorage.setItem("userInfo", JSON.stringify(data));
-    window.location.reload(true);
+    // window.location.reload(true);
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -52,7 +52,7 @@ export const login = (email, password) => async (dispatch) => {
 // LOGOUT
 export const logout = () => (dispatch) => {
   localStorage.clear();
-  window.location.reload(true);
+  // window.location.reload(true);
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
