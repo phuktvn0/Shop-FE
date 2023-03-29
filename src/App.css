@@ -488,12 +488,20 @@ textarea:focus {
   width: 100%;
 }
 /* CART */
-.cart-iterm {
+.cart-item {
   margin: 40px 0;
   padding: 20px;
   background-color: white;
   box-shadow: 0 12px 20px 1px rgba(64, 64, 64, 0.09);
   position: relative;
+}
+
+.cart-price {
+  position: relative;
+}
+
+.mg-10 {
+  margin-top: 100px;
 }
 
 .remove-button {
@@ -502,8 +510,8 @@ textarea:focus {
   height: 25px;
   border-radius: 100px;
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: 0px;
+  right: 0px;
   font-size: 12px;
   color: #ffffff;
   cursor: pointer;

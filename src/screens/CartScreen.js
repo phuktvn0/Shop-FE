@@ -64,12 +64,6 @@ const CartScreen = () => {
             {/* cartitem */}
             {cartItems.map((item) => (
               <div className="cart-item row" key={item.product}>
-                <div
-                  onClick={() => removeFromCartHandler(item.product)}
-                  className="remove-button d-flex justify-content-center align-items-center"
-                >
-                  <i className="fas fa-times"></i>
-                </div>
                 <div className="cart-image col-md-3">
                   <img src={item.image} alt={item.name} />
                 </div>
@@ -105,8 +99,14 @@ const CartScreen = () => {
                   {console.log(cartItems)}
                 </div>
                 <div className="cart-price mt-3 mt-md-0 col-md-2 align-items-sm-end align-items-start  d-flex flex-column justify-content-center col-sm-7">
-                  <h6>GIÁ</h6>
-                  <h4>{item.price}VND</h4>
+                  <h4> </h4>
+                  <h4>{`Giá ${item.price} VND`}</h4>
+                  <div
+                    onClick={() => removeFromCartHandler(item.product)}
+                    className="remove-button d-flex justify-content-center align-items-center"
+                  >
+                    <i className="fas fa-times"></i>
+                  </div>
                 </div>
               </div>
             ))}
