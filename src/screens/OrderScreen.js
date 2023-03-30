@@ -119,7 +119,7 @@ const OrderScreen = () => {
                     ) : (
                       <div className="bg-danger p-2 col-12">
                         <p className="text-white text-center text-sm-start">
-                          Không được giao
+                          Chưa được giao
                         </p>
                       </div>
                     )}
